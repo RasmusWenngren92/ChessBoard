@@ -4,37 +4,58 @@
     {
         static void Main(string[] args)
         {
+            // Programmer   : Rasmus Wenngren
+            // Program      : Fullstack .NET
+            // Course       : Programmering med C# och .NET
+            // Lab 2        : ChessBoard
 
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+            // Declaring default value for squares, number of rows and a bool for the program to run
+            string white = "◻";
+            string black = "◼";
+            int number = 0;
+            bool endGame = false;
             Console.WriteLine("Hur stort schackbräde vill du skapa?");//asking how big board to create
-            int number = Int32.Parse(Console.ReadLine());//converts from string to int
-            Console.WriteLine("Hur ska vita rutor se ut?");
-            string white = Console.ReadLine();//declares white squares
-            Console.WriteLine("Hur ska svarta rutor se ut?");
-            string black = Console.ReadLine();//declares black squares
 
-            int rowSize = number; // declarates how many rows
-            int colSize = number;// declarates how many columns
-
-            for (int row = 0; row < rowSize; row++) //looping through declared amounts of rows
+            while (!endGame)
             {
-                for (int col = 0; col < colSize; col++)//looping through declarede amounts of columns
+                bool success = (Int32.TryParse(Console.ReadLine(), out number));// checking input value and converting from string to int
+                Console.Clear();
+                if (success)
                 {
-                    if ((row + col) % 2==0) // an equation to determit if the input is even or uneven
+                    int rowSize = number; // declarates how many rows
+                    int colSize = number;// declarates how many columns
+
+                    for (int row = 0; row < rowSize; row++) //looping through declared amounts of rows
                     {
-                        //Console.Write("◼︎");// if the number is even
-                        Console.Write($" {white} ");
+                        for (int col = 0; col < colSize; col++)//looping through declarede amounts of columns
+                        {
+                            if ((row + col) % 2 == 0) // an equation to determit if the input is even or uneven
+                            {
+                                Console.Write($" {white} ");
+                                Thread.Sleep(25);//making it look like someone actually is typing out the board
+                            }
+                            else
+                            {
+                                Console.Write($" {black} ");
+                                Thread.Sleep(25);//making it look like someone actually is typing out the board
+                            }
+                        }
+                        Console.WriteLine();// printing a new line each time the loop has gone thruogh the input from the user
                     }
-                    else
-                    {
-                        //Console.Write("◻︎");//if the number is uneven
-                        Console.Write($" {black} ");
-                    }
+                    
+                    Thread.Sleep(2000);
+                    Console.WriteLine("Snyggt jobbat! Tack för idag :) ");
+                    endGame = true;// bool to end the loop and end the program
                 }
-                Console.WriteLine();//writes out the chessboard
-                
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Var god mata in en siffra!");
+                    
+                }
             }
-            Console.Read();// to give the user time to look at the chessboard
         }
+        
     }
 }
